@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Edit Note</title>
+    <style>
+        body {
+            background: linear-gradient(45deg, #000428, #004e92);
+            color: #ffffff;
+            font-family: 'Segoe UI', sans-serif;
+            min-height: 100vh;
+            padding-top: 5rem;
+        }
+
+        .form-container {
+            background: rgba(11, 28, 44, 0.8);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 0 30px rgba(0, 255, 242, 0.2);
+        }
+
+        .btn-custom {
+            background: linear-gradient(45deg, #00fff2, #ff00d4);
+            border: none;
+            border-radius: 10px;
+            color: #0b1c2c;
+            font-weight: bold;
+            padding: 10px 20px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 242, 0.4);
+        }
+
+        .navbar {
+            background: rgba(11, 28, 44, 0.95);
+            border-bottom: 1px solid #00fff2;
+        }
+
+        .navbar-brand {
+            color: #00fff2 !important;
+            font-size: 1.5rem;
+        }
+
+        .nav-link {
+            color: #ffffff !important;
+        }
+
+        .nav-link:hover {
+            color: #00fff2 !important;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    {{>navbar_log}}
+
+    <!-- Edit Note Form -->
+    <div class="container">
+        <div class="form-container">
+            <h3 class="text-center">Edit Note</h3>
+            <form id="editNoteForm">
+                <div class="form-group">
+                    <label for="editDate">Date : {{dateCurrent}}</label>  
+                </div>
+                <div class="form-group">
+                    <label for="editNote">Note</label>
+                    <textarea class="form-control" id="editNotee" rows="5" required></textarea>
+                </div>
+                <button type="submit" id="saveNoteBatan" class="btn btn-custom w-100">Save Changes</button>
+            </form>
+        </div>
+    </div>
+
+    
+</body>
+<script src="js/editnote.js"></script>
+
+</html>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <title>My Notes</title>
+
+    <style>
+        :root {
+            --primary-color: #00fff2;
+            --secondary-color: #0b1c2c;
+            --accent-color: #ff00d4;
+            --text-color: #ffffff;
+        }
+
+        body {
+            background: linear-gradient(45deg, #000428, #004e92);
+            color: var(--text-color);
+            font-family: 'Segoe UI', sans-serif;
+            min-height: 100vh;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background: rgba(11, 28, 44, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--primary-color);
+            padding: 1rem 2rem;
+        }
+
+        .navbar-brand {
+            color: var(--primary-color) !important;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+        }
+
+        .navbar-brand i {
+            color: var(--accent-color);
+            margin-right: 10px;
+            animation: pulse 2s infinite;
+        }
+
+        .nav-link {
+            color: var(--text-color) !important;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color) !important;
+        }
+
+        /* Notes Container */
+        .notes-container {
+            background: rgba(11, 28, 44, 0.8);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid rgba(0, 255, 242, 0.1);
+            padding: 30px;
+            margin-top: 30px;
+            box-shadow: 0 0 30px rgba(0, 255, 242, 0.2);
+        }
+
+        /* Note Card */
+        .note-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 242, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .note-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 255, 242, 0.3);
+        }
+
+        .note-date {
+            color: var(--primary-color);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .note-content {
+            color: var(--text-color);
+            background: transparent;
+            border: none;
+            width: 100%;
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        /* Button Styles */
+        .btn-custom {
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            border: none;
+            border-radius: 10px;
+            color: var(--secondary-color);
+            font-weight: bold;
+            padding: 10px 20px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 242, 0.4);
+        }
+
+        /* Modal Styles */
+        .modal-content {
+            background: var(--secondary-color);
+            border: 1px solid var(--primary-color);
+        }
+
+        .modal-header {
+            border-bottom: 1px solid var(--primary-color);
+        }
+
+        .modal-footer {
+            border-top: 1px solid var(--primary-color);
+        }
+
+        .form-control {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 242, 0.2);
+            color: var(--text-color);
+        }
+
+        .form-control:focus {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--primary-color);
+            color: var(--text-color);
+            box-shadow: 0 0 10px rgba(0, 255, 242, 0.3);
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    {{>navbar_log}}
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="notes-container">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>My Notes</h2>
+            </div>
+            <div id="notesArea">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div class="note-date">{{dateCurrent}}</div>
+                    <div>
+                        <button class="btn btn-sm btn-custom mr-2" id="saveNoteBtn">
+                            <i class="fas fa-save"></i>
+                        </button>
+                        
+                    </div>
+                </div>
+                <textarea class="note-content form-control" id="textCon"
+                    placeholder="Type your note here..."></textarea>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Contact Modal -->
+    <div class="modal fade" id="contactModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-light">Contact Us</h5>
+                    <button type="button" class="close text-light" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label class="text-light">Email</label>
+                            <input type="email" class="form-control" id="conEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="text-light">Message</label>
+                            <textarea class="form-control" rows="4" id="conText" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-custom" onclick="contactBnn(event)">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script src="js/notes.js"></script>
+
+</html>

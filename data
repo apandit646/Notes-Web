@@ -1,0 +1,40 @@
+const submitBt = document.getElementById('submitBtnn');
+const signup_form = document.getElementById('signup_form');
+
+submitBt.addEventListener('click', async (event) => {
+    event.preventDefault(); // Prevent default form submission
+
+    const formData = new FormData(signup_form);
+    const formObject = Object.fromEntries(formData.entries());
+    console.log(formObject);
+    // Client-side validation
+    if (!formObject.first_name || !formObject.last_name || !formObject.email || !formObject.phone || !formObject.age || !formObject.password || !formObject.confirm_password) {
+        alert('All fields are required');
+        return;
+    }
+    if (formObject.password !== formObject.confirm_password) {
+        alert("Passwords don't match");
+        return;
+    }
+
+    try {
+        const response = await fetch('/api/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formObject)
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+            alert(data.message);
+            signup_form.reset();
+        } else {
+            alert(data.message);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred! Please try again.');
+    }
+});
